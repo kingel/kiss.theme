@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rules
+    xmlns="http://namespaces.plone.org/diazo"
+    xmlns:css="http://namespaces.plone.org/diazo/css"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    css:if-content="#visual-portal-wrapper">
+
+  <!-- The default theme, used for standard Plone web pages -->
+  <theme href="index.html" />
+
+    <!-- Add meta tags -->
+    <drop theme="/html/head/meta" />
+    <after content="/html/head/meta" theme-children="/html/head" />
+
+    <!-- Copy style, script and link tags in the order they appear in the content -->
+    <after
+        content="/html/head/style | /html/head/script | /html/head/link"
+        theme-children="/html/head"
+        />
+
+
+    <!-- Copy over the id/class attributes on the body tag.
+         This is important for per-section styling -->
+    <merge attributes="class" css:content="body" css:theme="body" />
+    <copy attributes="id dir" css:content="body" css:theme="body" />
+
+    <!-- Logo (link target) -->
+    <copy attributes="href" css:content="#portal-logo" css:theme="#logo-text a" />
+
+    <!-- Navigation -->
+    <replace css:theme-children="#nav" css:content="#portal-globalnav" />
+
+    <!-- Header / footer -->
+    <replace css:content="#portal-header > *" css:theme-children="#portal-header" />
+    <replace css:content="#portal-footer > *" css:theme-children="#footer-wrapper" />
+
+    <!-- Columns -->
+    <replace css:content-children="#portal-column-one > *" css:theme-children=".grid_4.alpha" />
+    <replace css:content-children="#portal-column-two > *" css:theme-children=".grid_4.omega" />
+    <replace css:content-children="#portal-column-content > *" css:theme-children="#main" />
+
+</rules>
